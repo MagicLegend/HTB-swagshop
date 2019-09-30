@@ -1,0 +1,51 @@
+\chapter{The script}
+\label{chap:script}
+
+So, this box has a tendency to be resetted a lot. On average, this machine gets reset over a hundred times a day. Apart from this, \verb|script kiddies| keep launching automated attacks, crippeling the server. This makes it really difficult to keep your shell on the machine. So, as part of the requirement \verb|Automating offensive security tasks.|, I decided to write a custom Python script, to automatically re-gain my shell.
+
+\vspace{5mm}
+
+This was easier said than done. I knew the steps that I had to take, but it this total undertaking took me about a week to complete. This was partly due to my inexperience in Python, partly due to weird documentation of the scraping plugin, \verb|BeautifulSoup| and partly due to some bad API behavior of Magento.
+
+\vspace{5mm}
+
+I am aware that the code quality isn't the highest. Some things could be more fail-proof, tho I've tried to write the code flexible enough that it should work on other machines with the same vulnerable Magento version. Also, the script can be ran multiple times on the same machine without any negative effect.
+
+This is because all the custom things I upload are using UUID's as filenames, meaning they're practically unique. This way there are no collisions in namings on the server, with the newly created category, uploaded exploit and created newsletter template.
+
+\vspace{5mm}
+
+\noindent In broad lines, the script does the following:
+
+\begin{itemize}
+    \item Uses the \verb|37977.py| script to gain admin credentials to the server.
+    \item Logs in to the server, and using the \verb|Session| functionality from the \verb|requests| package; I'm able to keep the session going between requests.
+    \item Disables the url-keys. This means the requests don't have to be appended with a random key. This has the advantage that I don't need to scrape myself through the site, but I can just directly make the requests I need.
+    \item Enabling symlinks, this is a requirement for the traversal in a later stage of the exploit.
+    \item Next, I create the category with an unique UUID, and upload the PHP exploit.
+    \item Then, I have to create the newsletter template, with the right code inside referring to the uploaded PHP exploit from the previous step.
+    \item Finally, the newsletter template needs to be 'previewed' to run the exploit.
+\end{itemize}
+
+As with every piece of code, there were a thousand different challenges involved in this. Traversing though the scraped html code was a huge challenge. Since this is so error-prone, I wanted to do this with as much built-in flexibility as possible.
+
+Another thing that was new to me, is that all the settings are sent to the server in a \verb|multipart form data| form. I had never heard of this, and had to research how this method of transferring data works, and how to do it in Python.
+
+The server refused to apply the settings if the request contained a \verb|filename| attribute, so I had to strip that out. Figuring this out, and figuring out how to do its was already a few hours down the drain. In the end, the solution ended up being a structure like this:
+
+\begin{listing}
+    \begin{minted}[linenos, breaklines, breakautoindent=true]{python}
+        multipart_form_data = {
+            'form_key': (None, system_config_form_key),
+            'groups[security][fields][use_form_key][value]': (None, 0)
+        }
+    
+        response = session.post(url + '/admin/system_config/save/section/admin/key/' + urlKey + '/', files=multipart_form_data)
+    
+    \end{minted}
+    \caption{\emph{Python code used to make a valid request to change a setting (disabling the url-keys).}}
+\end{listing}
+
+
+
+The \verb|'thing': (None, value)| ended up being the solution. The None apparently means that it isn't a file, meaning that it won't send the \verb|filename| attribute.

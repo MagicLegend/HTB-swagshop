@@ -1,0 +1,51 @@
+\pretitle{%
+    \definecolor{fontys}{RGB}{102,51,102}
+    
+    % upper triangle
+    \begin{tikzpicture}[remember picture, overlay, shift={(current page.north west)}]
+        
+        \node (p0) at (0.0,                     0.0) {};
+        \node (p1) at (\paperwidth + 20.0cm,    0.0) {};
+        \node (p2) at (0.0,                     -4.0) {};
+      
+        \fill[fontys]
+        (p0.center)--(p1.center)--(p2.center);
+        
+    \end{tikzpicture}
+    
+    
+    % content
+    \begin{figure}[ht]
+        \centering
+        \vspace{-75mm}
+        \protect\includegraphics[width=100mm]{figures/00-FONTYS-CARD_CARD-WIT-RGB.jpg}
+        %\vspace{-30mm}
+    \end{figure}
+   
+    % lower triangle
+    \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+        
+        \node (p0) at (-60.0,       0.0) {};
+        \node (p1) at (\paperwidth, 0.0) {};
+        \node (p2) at (\paperwidth, 10.0) {};
+      
+        \fill[fontys]
+        (p0.center)--(p1.center)--(p2.center);
+        
+    \end{tikzpicture}
+
+    \begin{center}
+}
+\title{
+    \huge \textbf{Swagshop writeup} \\
+    \vspace{5mm}
+    \large Hack the Box \\
+    \url{https://www.hackthebox.eu/home/machines/profile/188}\\
+    \vspace{5mm}
+    \textit{Report for Fontys Hogeschool ICT}
+    \normalsize
+}
+    
+\author{Jort Geurts | i360843 | 3007235}
+
+\posttitle{\end{center}}

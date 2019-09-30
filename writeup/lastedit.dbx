@@ -1,0 +1,19 @@
+\DeclareDatamodelFields[type=field, datatype=date, skipout]{
+  lasteditdate,
+}
+\DeclareDatamodelEntryfields{
+  lasteditday,
+  lasteditendday,
+  lasteditendhour,
+  lasteditendminute,
+  lasteditendmonth,
+  lasteditendsecond,
+  lasteditendtimezone,
+  lasteditendyear,
+  lastedithour,
+  lasteditminute,
+  lasteditmonth,
+  lasteditsecond,
+  lastedittimezone,
+  lastedityear,
+}

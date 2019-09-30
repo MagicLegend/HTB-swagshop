@@ -1,0 +1,165 @@
+\documentclass[british]{report}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage[usenames, dvipsnames, table]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{lmodern} % https://tex.stackexchange.com/a/57265
+
+% \usepackage[colorlinks]{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{glossaries}
+\usepackage[automake]{glossaries-extra}
+\usepackage{cleveref}
+
+%Package to draw simple directory trees | https://tex.stackexchange.com/a/253595
+\usepackage{dirtree}
+
+\usepackage{babel}
+\usepackage{csquotes}
+
+\usepackage{todonotes}
+
+\usepackage[titletoc]{appendix}
+
+\usepackage{soul}
+
+\usepackage{needspace}
+
+\usepackage[datesep=/,style=ddmmyyyy]{datetime2}
+
+\usepackage{minted}
+\usemintedstyle[ts]{vs}
+
+\usepackage{caption} % https://tex.stackexchange.com/a/112660
+
+\usepackage{mdframed} % https://www.slideshare.net/linjaaho/how-to-make-boxed-text-with-latex slide 8
+
+\usepackage{pdfpages} % https://stackoverflow.com/a/2739710/7193940
+
+\usepackage{listings} % From the projectdocument
+
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{bigfoot} % https://tex.stackexchange.com/a/87493
+
+\usepackage{wrapfig} % https://tex.stackexchange.com/a/55179
+
+\usepackage{fancyvrb} % https://tex.stackexchange.com/a/451397
+
+% \makeatletter
+% \def\@xobeysp{ } % https://web.archive.org/web/20100428131559/newsgroups.derkeiler.com/Archive/Comp/comp.text.tex/2009-04/msg00306.html
+% \makeatother
+
+\definecolor{plum}{rgb}{0.56, 0.27, 0.52} % https://latexcolor.com/
+\definecolor{raspberry}{rgb}{0.89, 0.04, 0.36}
+\definecolor{pear}{rgb}{0.82, 0.89, 0.19}
+\newcommand{\todoil}[1]{\todo[inline]{#1}} % Add inline todo command
+\newcommand{\todoilq}[1]{\todo[inline, color=raspberry!100]{#1}} % Add purple inline todo command
+\newcommand{\todoq}[1]{\todo[color=raspberry!100]{#1}} % Add purple inline todo command
+\newcommand{\todoref}{\todo[color=pear!100]{Add ref}}
+
+% Todonotes doc 1.8.13: Highlight text to fix
+\makeatletter
+	\if@todonotes@disabled
+		\newcommand{\todohl}[2]{#1}
+	\else
+		\newcommand{\todohl}[2]{\sethlcolor{yellow}\texthl{#1}\todo{#2}}
+		\newcommand{\todohlq}[2]{\sethlcolor{yellow}\texthl{#1}\todo[color=raspberry!100]{#2}}
+	\fi
+\makeatother
+
+\usepackage[
+backend=biber,
+%style=alphabetic,
+sorting=none, %anyvt
+datamodel=lastedit,
+lasteditdate=short,
+maxbibnames=99, % https://tex.stackexchange.com/a/1557
+]{biblatex}
+
+\addbibresource{bibliography.bib}
+
+% https://tex.stackexchange.com/a/412669
+\NewBibliographyString{lastchanged}
+\DefineBibliographyStrings{english}{
+  lastchanged = {last changed},
+}
+
+% \DeclareFieldFormat{lasteditdate}{\mkbibparens{\bibstring{lastchanged}\space#1}}
+
+% \renewbibmacro*{url+urldate}{%
+%   \usebibmacro{url}%
+%   \iffieldundef{lastedityear}
+%     {}
+%     {\setunit*{\addspace}%
+%      \printlasteditdate}%
+%   \iffieldundef{urlyear}
+%     {}
+%     {\setunit*{\addspace}%
+%      \usebibmacro{urldate}}}
+
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+% this alters "before" spacing (the second length argument) to 0
+\titlespacing*{\chapter}{0pt}{0pt}{10pt}
+
+% https://tex.stackexchange.com/a/7549
+\newcommand{\latex}{\LaTeX\xspace}
+\newcommand{\tex}{\TeX\xspace}
+
+\makeglossaries
+
+\newlength\longest % https://tex.stackexchange.com/a/57265
+
+\input{content/title.tex}
+
+\input{content/glossaries.tex}
+
+\begin{document}
+
+\nocite{*}
+
+\maketitle
+
+\newpage
+
+% \input{content/quote.tex}
+\newpage
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+\tableofcontents
+
+\newpage
+
+\printglossaries
+
+\newpage
+
+\input{content/introduction.tex}
+
+\input{content/basic-recon.tex}
+
+\input{content/exploit-1.tex}
+
+\input{content/exploit-2.tex}
+
+\input{content/the-script.tex}
+
+\input{content/the-flags.tex}
+
+% More content
+
+% \newpage
+% \printbibliography
+
+% \listoftodos
+
+\end{document}
