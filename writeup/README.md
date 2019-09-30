@@ -1,4 +1,3 @@
-# LaTeX_Template
-Template for my LaTeX documents.
+# Writeup
 
-https://truben.no/latex/bibtex/#
+This folder contains the tex (and compiled pdf) of the writeup of this box.
